@@ -1,0 +1,62 @@
+main {
+  min-height: 80vh;
+}
+
+h1 {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+}
+
+h2 {
+  font-size: 1.23rem;
+  padding: 0.5rem 0;
+}
+
+h3 {
+  padding: 1rem 0;
+}
+
+h4 {
+  padding: 1rem 0;
+}
+
+.rating span {
+  margin: 0.09rem;
+}
+
+.map {
+  width: 60vw;
+  height: 60vh;
+  position: relative;
+}
+
+.map-pin {
+  font-size: 2rem;
+  color: darkred;
+}
+
+.location-info {
+  position: absolute;
+  top: 80px;
+  right: 50px;
+  width: 400px;
+  min-height: 200px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.location-info ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.location-info li {
+  padding: 5px 0;
+}
+
+.image-profile {
+  padding-bottom: 5px;
+}
