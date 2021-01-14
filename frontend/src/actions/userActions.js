@@ -53,14 +53,15 @@ export const login = (email, password) => async dispatch => {
 
 export const logout = () => dispatch => {
   localStorage.removeItem('userInfo');
-  // localStorage.removeItem('cartItems');
+  localStorage.removeItem('date');
+  localStorage.removeItem('doctor');
   // localStorage.removeItem('shippingAddress');
-  // localStorage.removeItem('paymentMethod');
+  localStorage.removeItem('paymentMethod');
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
   // dispatch({ type: ORDER_LIST_MY_RESET });
   // dispatch({ type: USER_LIST_RESET });
-  document.location.href = '/login';
+  document.location.href = '/';
 };
 
 export const register = (nom, prenom, email, password) => async dispatch => {

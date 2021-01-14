@@ -64,7 +64,7 @@ const PatientProfileScreen = ({ location, history }) => {
             </Nav.Item>
 
             <Nav.Item>
-              <LinkContainer to='/patient/rdv'>
+              <LinkContainer to='/patient/rdvs'>
                 <Nav.Link className='btn btn-light my-3'>Mes rdvs</Nav.Link>
               </LinkContainer>
             </Nav.Item>

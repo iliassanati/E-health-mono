@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Col, Row, Card, InputGroup, Form, Button } from 'react-bootstrap';
 import { saveRenseignements } from '../actions/rdvInfoActions';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const RdvScreen = ({ history }) => {
   const [etatClient, setEtatClient] = useState('Je suis un nouveau patient');
@@ -27,6 +28,7 @@ const RdvScreen = ({ history }) => {
 
   return (
     <>
+      <CheckoutSteps step1 step2 step3 />
       <h1>Prendre rendez-vous en ligne</h1>
       <Row>
         <Col md={5}>
@@ -57,7 +59,7 @@ const RdvScreen = ({ history }) => {
               <Form.Control as='radio'>
                 <Form.Check
                   type='radio'
-                  id='default-radio1'
+                  id='defaultRadio'
                   name='groupOptions'
                   label='Je suis un nouveau patient'
                   value='Je suis un nouveau patient'
@@ -65,7 +67,7 @@ const RdvScreen = ({ history }) => {
                 />
                 <Form.Check
                   type='radio'
-                  id='default-radio2'
+                  id='defaultRadio'
                   name='groupOptions'
                   label='Je suis déjà patient de ce médecin'
                   value='Je suis déjà patient de ce médecin'

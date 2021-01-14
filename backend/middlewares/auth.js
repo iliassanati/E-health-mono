@@ -21,9 +21,6 @@ const auth = (req, res, next) => {
       req.doctor = decoded.doctor;
       req.user = decoded.user;
 
-      console.log(req.doctor);
-      console.log(req.user);
-
       next();
     } catch (error) {
       res.status(401);

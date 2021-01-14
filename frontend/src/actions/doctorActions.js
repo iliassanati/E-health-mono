@@ -60,6 +60,7 @@ export const doctorLogout = () => dispatch => {
   localStorage.removeItem('doctorInfo');
   dispatch({ type: DOCTOR_LOGOUT });
   dispatch({ type: DOCTOR_DETAILS_RESET });
+  document.location.href = '/';
 };
 
 export const register = (

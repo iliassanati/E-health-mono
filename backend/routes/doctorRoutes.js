@@ -6,39 +6,6 @@ import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
-//@route    GET api/doctors/profile
-//@desc     Show doctor profile
-//@access   Private
-router.get(
-  '/profile',
-  auth,
-  asyncHandler(async (req, res) => {
-    try {
-      const doctor = await Doctor.findById(req.doctor._id).select('-password');
-      res.json(doctor);
-    } catch (err) {
-      console.log(err.message);
-      res.status(500).json('Server Error');
-    }
-  })
-);
-
-//@route    GET api/doctors/:id
-//@desc     Fetch a single doctor
-//@access   Public
-router.get(
-  '/:id',
-  asyncHandler(async (req, res) => {
-    const doctor = await Doctor.findById(req.params.id);
-    if (doctor) {
-      res.json(doctor);
-    } else {
-      res.status(404);
-      throw new Error('Doctor not found');
-    }
-  })
-);
-
 //@route    POST api/doctors/signup
 //@desc     Register a doctor
 //@access   Public
@@ -81,7 +48,7 @@ router.post(
     if (doctor) {
       const payload = {
         doctor: {
-          id: doctor.id,
+          _id: doctor._id,
         },
       };
       jwt.sign(
@@ -101,6 +68,7 @@ router.post(
             phoneCabinet: doctor.phoneCabinet,
             phonePersonel: doctor.phonePersonel,
             formattedAddress: doctor.location.formattedAddress,
+            location: doctor.location,
             token: token,
           });
         }
@@ -146,12 +114,46 @@ router.post(
             phoneCabinet: doctor.phoneCabinet,
             phonePersonel: doctor.phonePersonel,
             token: token,
+            location: doctor.location,
           });
         }
       );
     } else {
       res.status(401);
       throw new Error('Invalid email or password');
+    }
+  })
+);
+
+//@route    GET api/doctors/profile
+//@desc     Show doctor profile
+//@access   Private
+router.get(
+  '/profile',
+  auth,
+  asyncHandler(async (req, res) => {
+    try {
+      const doctor = await Doctor.findById(req.doctor._id).select('-password');
+      res.json(doctor);
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).json('Server Error');
+    }
+  })
+);
+
+// @route    GET api/doctors/:id
+// @desc     Fetch a single doctor
+// @access   Public
+router.get(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const doctor = await Doctor.findById(req.params.id);
+    if (doctor) {
+      res.json(doctor);
+    } else {
+      res.status(404);
+      throw new Error('Doctor not found');
     }
   })
 );
@@ -216,7 +218,6 @@ router.put(
             description: updatedDoctor.description,
             diplomesEtFormations: updatedDoctor.diplomesEtFormations,
             informationsPratiques: updatedDoctor.informationsPratiques,
-
             token: token,
           });
         }
@@ -227,6 +228,18 @@ router.put(
     }
   })
 );
+
+// //@desc GET logged in doctor rdvs
+// //@route GET /api/rdvs/myrdvs
+// //@access Private
+// router.get(
+//   '/myrdvs',
+//   auth,
+//   asyncHandler(async (req, res) => {
+//     const rdvs = await RDV.find({ doctor: req.doctor._id });
+//     res.json(rdvs);
+//   })
+// );
 
 //@route    GET /api/doctors/
 //@desc     Get all doctors

@@ -22,7 +22,7 @@ const doctors = [
     password: bcrypt.hashSync('123456789', 10),
     specialite: 'Orthodontiste',
     addressCabinet:
-      'Immeuble Majorelle, Au Dessus De Laboratoire Et Pharmacie Majorelle. Avenue Allal Fassi, Appt 12. 3Eme Etage., 40000, Marrakech',
+      'Immeuble Majorelle. Avenue Allal Fassi, Appt 12. 3Eme Etage, 40000, Marrakech',
     ville: 'Marrakech',
     phoneCabinet: '0535536406',
     phonePersonel: '0649130266',

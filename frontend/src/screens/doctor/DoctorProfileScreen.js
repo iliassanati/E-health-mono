@@ -11,7 +11,8 @@ import {
 } from '../../actions/doctorActions';
 import axios from 'axios';
 
-import Map from '../../components/Map';
+import GoogleMapReact from 'google-map-react';
+import LocationMarker from '../../components/LocationMarker';
 
 const DoctorProfileScreen = ({ location, history }) => {
   const [titre, setTitre] = useState('');
@@ -47,7 +48,7 @@ const DoctorProfileScreen = ({ location, history }) => {
 
   useEffect(() => {
     if (!doctorInfo) {
-      history.push('/doctor/login');
+      history.push('/doctors/login');
     } else {
       if (!doctor.nom) {
         dispatch(getDoctorDetails('profile'));
@@ -124,11 +125,6 @@ const DoctorProfileScreen = ({ location, history }) => {
     <>
       <Row>
         <Col>
-          {doctorInfo && (
-            <h1>
-              Bonjour {doctorInfo.titre} {doctorInfo.nom}{' '}
-            </h1>
-          )}
           <Nav className='justify-content-center mb-4'>
             <Nav.Item>
               <LinkContainer to='/doctors/profile'>
@@ -151,44 +147,43 @@ const DoctorProfileScreen = ({ location, history }) => {
         </Col>
       </Row>
       <Row>
-        <Col md={3}>
+        {loading && <Loader />}
+        {error && <Message variant='danger'>{error}</Message>}
+        <>
           {' '}
-          <Card className='my-3 p-3 rounded'>
-            <Card.Img
-              src={doctor.image}
-              variant='top'
-              className='image-profile'
-            />
-            <Form.Group controlId='image'>
-              <Form.Label>Image</Form.Label>
-              <Form.File
-                id='image-file'
-                label='Choose File'
-                custom
-                onChange={uploadFileHandler}
-              ></Form.File>
-              {uploading && <Loader />}
-            </Form.Group>
-            <Card.Body>
-              <Card.Title as='div'>
-                <strong>
-                  {doctor.titre}
-                  {doctor.prenom}
-                  {doctor.nom}
-                </strong>
-              </Card.Title>
-              <Card.Text as='div'>
-                {/* <Rating value={product.rating} text={`$ reviews`} /> */}
-              </Card.Text>
-              <Card.Text as='h3'>{doctor.phone}</Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant='danger'>{message}</Message>
-        ) : (
+          <Col md={3}>
+            {' '}
+            <Card className='my-3 p-3 rounded'>
+              <Card.Img
+                src={doctor.image}
+                variant='top'
+                className='image-profile'
+              />
+              <Form.Group controlId='image'>
+                <Form.Label>Image</Form.Label>
+                <Form.File
+                  id='image-file'
+                  label='Choose File'
+                  custom
+                  onChange={uploadFileHandler}
+                ></Form.File>
+                {uploading && <Loader />}
+              </Form.Group>
+              <Card.Body>
+                <Card.Title as='div'>
+                  <strong>
+                    {doctor.titre}
+                    {doctor.prenom}
+                    {doctor.nom}
+                  </strong>
+                </Card.Title>
+                <Card.Text as='div'>
+                  {/* <Rating value={product.rating} text={`$ reviews`} /> */}
+                </Card.Text>
+                <Card.Text as='h3'>{doctor.phone}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
           <Col md={9}>
             <h4>INFORMATIONS GENERALES ET COORDONNEES</h4>
             {success && <Message variant='success'>Profile Updated</Message>}
@@ -352,7 +347,38 @@ const DoctorProfileScreen = ({ location, history }) => {
                 </Form.Group>
               </Form.Row>
 
-              {/* <Map doctor={doctor} /> */}
+              {doctorInfo.location.coordinates ? (
+                <Form.Group className='map' as={Col} md='12'>
+                  <GoogleMapReact
+                    bootstrapURLKeys={{
+                      key: 'AIzaSyD9yHl3vgj69oEh9DN35jPPtc0bhksyK5A',
+                    }}
+                    defaultCenter={{
+                      lat: 33.5731,
+                      lng: -7.5898,
+                    }}
+                    defaultZoom={6}
+                  >
+                    <LocationMarker
+                      lat={doctorInfo.location.coordinates[1]}
+                      lng={doctorInfo.location.coordinates[0]}
+                    ></LocationMarker>
+                  </GoogleMapReact>
+                </Form.Group>
+              ) : (
+                <Form.Group className='map' as={Col} md='12'>
+                  <GoogleMapReact
+                    bootstrapURLKeys={{
+                      key: 'AIzaSyD9yHl3vgj69oEh9DN35jPPtc0bhksyK5A',
+                    }}
+                    defaultCenter={{
+                      lat: 33.5731,
+                      lng: -7.5898,
+                    }}
+                    defaultZoom={6}
+                  ></GoogleMapReact>
+                </Form.Group>
+              )}
 
               <Form.Row>
                 <Form.Group as={Col} md='6' controlId='phoneCabinet'>
@@ -454,7 +480,7 @@ const DoctorProfileScreen = ({ location, history }) => {
               </Button>
             </Form>
           </Col>
-        )}
+        </>
       </Row>
     </>
   );

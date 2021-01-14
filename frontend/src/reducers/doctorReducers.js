@@ -117,10 +117,11 @@ export const doctorDetailsReducer = (state = { doctor: {} }, action) => {
         error: action.payload,
       };
 
-    case DOCTOR_DETAILS_RESET:
+    case DOCTOR_DETAILS_RESET: {
       return {
         doctor: {},
       };
+    }
     default:
       return state;
   }

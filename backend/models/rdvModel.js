@@ -15,18 +15,18 @@ const rdvSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    // doctorId: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   required: true,
-    //   ref: 'Doctor',
-    // },
+    doctor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Doctor',
+      required: true,
+    },
     etatClient: {
       type: String,
       enum: [
         'Je suis un nouveau patient',
         'Je suis déjà patient de ce médecin',
       ],
-      default: 'Je suis un nouveau client',
+      default: 'Je suis un nouveau patient',
     },
     typeConsultation: {
       type: String,

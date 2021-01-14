@@ -137,6 +137,7 @@ const doctorSchema = mongoose.Schema({
   },
   image: {
     type: String,
+    default: '/images/doctor.jpg',
   },
   prixConsultation: {
     type: Number,
@@ -158,6 +159,23 @@ const doctorSchema = mongoose.Schema({
   },
 });
 
+// Geocode & create location
+
+doctorSchema.pre('save', async function (next) {
+  const add = this.addressCabinet + ' ' + this.ville;
+  console.log(add);
+  const loc = await geocoder.geocode(add);
+  this.location = {
+    type: 'Point',
+    coordinates: [loc[0].longitude, loc[0].latitude],
+    formattedAddress: loc[0].formattedAddress,
+  };
+
+  // Do not save address
+  // this.addressCabinet = undefined;
+  next();
+});
+
 doctorSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
@@ -169,20 +187,6 @@ doctorSchema.pre('save', async function (next) {
 
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
-});
-
-// Geocode & create location
-doctorSchema.pre('save', async function (next) {
-  const loc = await geocoder.geocode(this.addressCabinet);
-  this.location = {
-    type: 'Point',
-    coordinates: [loc[0].longitude, loc[0].latitude],
-    formattedAddress: loc[0].formattedAddress,
-  };
-
-  // Do not save address
-  // this.addressCabinet = undefined;
-  next();
 });
 
 const Doctor = mongoose.model('Doctor', doctorSchema);

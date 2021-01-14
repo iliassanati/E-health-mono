@@ -17,7 +17,15 @@ import {
   doctorListReducer,
   doctorInfoByIdReducer,
 } from './reducers/doctorReducers';
-import { rdvCreateReducer, rdvDetailsReducer } from './reducers/rdvReducers';
+import {
+  doctorRdvListReducer,
+  patientRdvListReducer,
+  rdvCreateReducer,
+  rdvDeliverReducer,
+  rdvDetailsReducer,
+  rdvMyListReducer,
+  rdvPayReducer,
+} from './reducers/rdvReducers';
 import { rdvInfoReducer } from './reducers/rdvInfoReducers';
 
 const reducer = combineReducers({
@@ -34,6 +42,10 @@ const reducer = combineReducers({
   rdvInfo: rdvInfoReducer,
   rdvCreate: rdvCreateReducer,
   rdvDetails: rdvDetailsReducer,
+  rdvPay: rdvPayReducer,
+  rdvDeliver: rdvDeliverReducer,
+  patientRdvList: patientRdvListReducer,
+  doctorRdvList: doctorRdvListReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

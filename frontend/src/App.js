@@ -21,6 +21,8 @@ import RdvScreen from './screens/RdvScreen';
 import PayementScreen from './screens/PayementScreen';
 import PlaceOrder from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
+import PatientRdvScreen from './screens/patient/PatientRdvScreen';
+import DoctorRdvScreen from './screens/doctor/DoctorRdvScreen';
 
 function App() {
   return (
@@ -39,12 +41,14 @@ function App() {
             <Route path='/patient/login' component={PatientLoginScreen} />
             <Route path='/patient/register' component={PatientRegisterScreen} />
             <Route path='/patient/profile' component={PatientProfileScreen} />
+            <Route path='/patient/rdvs' component={PatientRdvScreen} />
 
             <Route path='/doctors/login' component={DoctorLoginScreen} />
             <Route path='/doctors/register' component={DoctorRegisterScreen} />
             <Route path='/doctors/doctorspace' component={DoctorSpaceScreen} />
             <Route path='/doctors/profile' component={DoctorProfileScreen} />
             <Route path='/doctors/patients' component={DoctorPatientsScreen} />
+            <Route path='/doctors/rdvs' component={DoctorRdvScreen} />
           </Container>
         </main>
         <Footer />
