@@ -51,7 +51,7 @@ export const createRdv = rdv => async (dispatch, getState) => {
   }
 };
 
-export const getRdvDetails = id => async (dispatch, getState) => {
+export const patientGetRdvDetails = id => async (dispatch, getState) => {
   try {
     dispatch({ type: RDV_DETAILS_REQUEST });
     const {
@@ -61,6 +61,31 @@ export const getRdvDetails = id => async (dispatch, getState) => {
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.get(`/api/rdvs/${id}`, config);
+    dispatch({ type: RDV_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: RDV_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const doctorGetRdvDetails = id => async (dispatch, getState) => {
+  try {
+    dispatch({ type: RDV_DETAILS_REQUEST });
+    const {
+      doctorLogin: { doctorInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${doctorInfo.token}`,
       },
     };
     const { data } = await axios.get(`/api/rdvs/${id}`, config);

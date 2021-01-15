@@ -25,23 +25,29 @@ const DoctorRdvScreen = ({ history }) => {
     <>
       <Row>
         <Col>
-          {/* {userInfo && <h1>Bonjour {userInfo.prenom} </h1>} */}
+          {/* {doctorInfo && (
+            <h1>
+              Bonjour {doctorInfo.titre} {doctorInfo.nom}{' '}
+            </h1>
+          )} */}
           <Nav className='justify-content-center mb-4'>
             <Nav.Item>
-              <LinkContainer to='/doctor/profile'>
+              <LinkContainer to='/doctors/profile'>
                 <Nav.Link className='btn btn-light my-3'>Mon profile</Nav.Link>
               </LinkContainer>
             </Nav.Item>
 
             <Nav.Item>
-              <LinkContainer to='/doctor/rdvs'>
-                <Nav.Link className='btn btn-light my-3'>Mes rdvs</Nav.Link>
+              <LinkContainer to='/doctors/patients'>
+                <Nav.Link className='btn btn-light my-3'>Mes patients</Nav.Link>
               </LinkContainer>
             </Nav.Item>
 
             <Nav.Item>
-              <LinkContainer to='/doctor/agenda'>
-                <Nav.Link className='btn btn-light my-3'>Mon agenda</Nav.Link>
+              <LinkContainer to='/doctors/rdvs'>
+                <Nav.Link className='btn btn-light my-3'>
+                  Mes rendez-vous
+                </Nav.Link>
               </LinkContainer>
             </Nav.Item>
           </Nav>

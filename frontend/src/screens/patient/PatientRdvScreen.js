@@ -14,8 +14,6 @@ const PatientRdvScreen = ({ history }) => {
   const patientRdvList = useSelector(state => state.patientRdvList);
   const { error, loading, rdvs } = patientRdvList;
 
-  console.log(rdvs);
-
   useEffect(() => {
     if (!userInfo) {
       history.push('/patient/login');

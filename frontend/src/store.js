@@ -17,13 +17,13 @@ import {
   doctorListReducer,
   doctorInfoByIdReducer,
 } from './reducers/doctorReducers';
+
 import {
   doctorRdvListReducer,
   patientRdvListReducer,
   rdvCreateReducer,
   rdvDeliverReducer,
   rdvDetailsReducer,
-  rdvMyListReducer,
   rdvPayReducer,
 } from './reducers/rdvReducers';
 import { rdvInfoReducer } from './reducers/rdvInfoReducers';

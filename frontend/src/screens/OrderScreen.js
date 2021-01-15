@@ -3,7 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Col, Button, ListGroup, Row, Image, Card } from 'react-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { getRdvDetails, payRdv } from '../actions/rdvActions';
+import {
+  patientGetRdvDetails,
+  doctorGetRdvDetails,
+  payRdv,
+  deliverRdv,
+} from '../actions/rdvActions';
 import axios from 'axios';
 import { RDV_PAY_RESET } from '../constants/rdvConstants';
 import { PayPalButton } from 'react-paypal-button-v2';
@@ -19,8 +24,14 @@ const OrderScreen = ({ match, history }) => {
   const rdvPay = useSelector(state => state.rdvPay);
   const { loading: loadingPay, success: successPay } = rdvPay;
 
+  const rdvDeliver = useSelector(state => state.rdvDeliver);
+  const { loading: loadingDeliver, success: successDeliver } = rdvDeliver;
+
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
+
+  const doctorLogin = useSelector(state => state.doctorLogin);
+  const { doctorInfo } = doctorLogin;
 
   useEffect(() => {
     const addPayPalScript = async () => {
@@ -34,9 +45,13 @@ const OrderScreen = ({ match, history }) => {
       };
       document.body.appendChild(script);
     };
-    if (!rdv._id || successPay) {
+    if (!rdv._id || successPay || successDeliver) {
       dispatch({ type: RDV_PAY_RESET });
-      dispatch(getRdvDetails(rdvId));
+      if (userInfo) {
+        dispatch(patientGetRdvDetails(rdvId));
+      } else {
+        dispatch(doctorGetRdvDetails(rdvId));
+      }
     } else if (!rdv.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
@@ -44,12 +59,16 @@ const OrderScreen = ({ match, history }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, rdvId, rdv, successPay, history]);
+  }, [dispatch, rdvId, rdv, successPay, history, successDeliver, userInfo]);
 
   const successPaymentHandler = paymentResult => {
-    console.log(paymentResult);
     dispatch(payRdv(rdvId, paymentResult));
   };
+
+  const deliverHandler = () => {
+    dispatch(deliverRdv(rdv));
+  };
+
   return (
     <>
       {loading ? (
@@ -65,6 +84,13 @@ const OrderScreen = ({ match, history }) => {
                 <p>
                   <strong>Date: </strong> {rdv.rdvDate}
                 </p>
+                {rdv.isDelivered ? (
+                  <Message variant='success'>
+                    Delivered on {rdv.deliveredAt}
+                  </Message>
+                ) : (
+                  <Message variant='danger'>Not Delivered</Message>
+                )}
               </ListGroup.Item>
 
               <ListGroup.Item>
@@ -140,6 +166,18 @@ const OrderScreen = ({ match, history }) => {
                         onSuccess={successPaymentHandler}
                       />
                     )}
+                  </ListGroup.Item>
+                )}
+                {loadingDeliver && <Loader />}
+                {doctorInfo && rdv.isPaid && !rdv.isDelivered && (
+                  <ListGroup.Item>
+                    <Button
+                      type='button'
+                      className='btn btn-block'
+                      onClick={deliverHandler}
+                    >
+                      Mark As Delivered
+                    </Button>
                   </ListGroup.Item>
                 )}
               </ListGroup>

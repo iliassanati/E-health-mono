@@ -125,6 +125,11 @@ const DoctorProfileScreen = ({ location, history }) => {
     <>
       <Row>
         <Col>
+          {/* {doctorInfo && (
+            <h1>
+              Bonjour {doctorInfo.titre} {doctorInfo.nom}{' '}
+            </h1>
+          )} */}
           <Nav className='justify-content-center mb-4'>
             <Nav.Item>
               <LinkContainer to='/doctors/profile'>
@@ -139,8 +144,10 @@ const DoctorProfileScreen = ({ location, history }) => {
             </Nav.Item>
 
             <Nav.Item>
-              <LinkContainer to='/payment'>
-                <Nav.Link className='btn btn-light my-3'>Mon agenda</Nav.Link>
+              <LinkContainer to='/doctors/rdvs'>
+                <Nav.Link className='btn btn-light my-3'>
+                  Mes rendez-vous
+                </Nav.Link>
               </LinkContainer>
             </Nav.Item>
           </Nav>
