@@ -19,7 +19,7 @@ const DoctorCard = ({ doctor }) => {
               <Card.Text as='div'>
                 {/* <Rating value={product.rating} text={`$ reviews`} /> */}
               </Card.Text>
-              <Card.Text as='h6'>{doctor.phoneCabinet}</Card.Text>
+              <Card.Text>{doctor.specialite}</Card.Text>
             </Card.Body>
           </Link>
         </Card>

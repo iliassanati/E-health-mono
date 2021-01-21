@@ -47,8 +47,20 @@ const DoctorInfoScreen = ({ match, history }) => {
                   alt='171x180'
                   src={doctor.image}
                 />
+                
                 <Figure.Caption>
-                  Nulla vitae elit libero, a pharetra augue mollis interdum.
+                  <br></br><br></br>
+                  Medcin : {doctor.titre} {doctor.nom} {doctor.prenom}
+                  <br></br><br></br>
+                  Email : {doctor.email}
+                  <br></br><br></br>
+                  Specialite : {doctor.specialite}
+                  <br></br><br></br>
+                  Adresse : {doctor.addressCabinet}
+                  <br></br><br></br>
+                  Ville : {doctor.ville}
+                  <br></br><br></br>
+                  Telephone Cabinet : {doctor.phoneCabinet}
                 </Figure.Caption>
               </Figure>
             </Col>

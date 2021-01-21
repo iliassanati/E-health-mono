@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Search from '../components/Search'
 import { Col, Row } from 'react-bootstrap';
 import DoctorCard from '../components/DoctorCard';
 import Message from '../components/Message';
@@ -15,8 +16,11 @@ const HomeScreen = () => {
     dispatch(listDoctors());
   }, [dispatch]);
 
+
   return (
+    
     <>
+    <Search />
       {loading ? (
         <Loader />
       ) : error ? (

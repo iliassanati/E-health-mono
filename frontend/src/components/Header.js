@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { logout } from '../actions/userActions';
 import { doctorLogout } from '../actions/doctorActions';
 
+
 const Header = () => {
   const dispatch = useDispatch();
 
@@ -33,6 +34,7 @@ const Header = () => {
               <i className='fal fa-heart-rate'></i> E-Health
             </Navbar.Brand>
           </LinkContainer>
+          
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ml-auto'>
@@ -85,10 +87,15 @@ const Header = () => {
                 </>
               )}
             </Nav>
+            
           </Navbar.Collapse>
+          
         </Container>
+        
       </Navbar>
+      
     </header>
+    
   );
 };
 
